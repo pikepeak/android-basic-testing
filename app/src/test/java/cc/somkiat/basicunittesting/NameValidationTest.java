@@ -50,4 +50,12 @@ public class NameValidationTest {
         NameValidation nameValidation = new NameValidation(userInfo);
         assertTrue("`true` when Name is OnlyEnglish", nameValidation.nameOnlyEnglish());
     }
+
+    @Test
+    public void nameIsAcceptable() throws Exception {
+        String name = "peakinwza";
+        UserInfo userInfo = new UserInfo(name);
+        NameValidation nameValidation = new NameValidation(userInfo);
+        assertTrue("`true` when Name is OnlyEnglish", nameValidation.validation());
+    }
 }

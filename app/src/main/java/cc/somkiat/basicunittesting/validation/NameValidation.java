@@ -6,6 +6,7 @@ import cc.somkiat.basicunittesting.rule.NameOnlyEnglishRule;
 
 public class NameValidation {
     UserInfo userInfo;
+
     public NameValidation(UserInfo userInfo) {
         this.userInfo = userInfo;
     }
@@ -18,5 +19,11 @@ public class NameValidation {
     public boolean nameOnlyEnglish() throws Exception{
         NameOnlyEnglishRule nameOnlyEnglishRule = new NameOnlyEnglishRule();
         return nameOnlyEnglishRule.validate(userInfo);
+    }
+
+    public boolean validation() throws Exception{
+        nameIsEmpty();
+        nameOnlyEnglish();
+        return true;
     }
 }
