@@ -7,6 +7,11 @@ public class UserInfo {
     public Date birthday;
     public String email;
 
+    public UserInfo(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public String getName() {
         return name;
     }
