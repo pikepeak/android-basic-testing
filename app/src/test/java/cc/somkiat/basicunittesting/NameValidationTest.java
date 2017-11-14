@@ -40,7 +40,14 @@ public class NameValidationTest {
         String name = "peak21515#!@#%^#$%^&*_*()&";
         UserInfo userInfo = new UserInfo(name);
         NameValidation nameValidation = new NameValidation(userInfo);
-        assertTrue("Need `true` when Name is not empty", nameValidation.nameIsEmpty());
+        assertTrue("`true` when Name is not empty", nameValidation.nameIsEmpty());
     }
 
+    @Test
+    public void nameOnlyEnglish() throws Exception {
+        String name = "peak";
+        UserInfo userInfo = new UserInfo(name);
+        NameValidation nameValidation = new NameValidation(userInfo);
+        assertTrue("`true` when Name is OnlyEnglish", nameValidation.nameOnlyEnglish());
+    }
 }
