@@ -1,5 +1,7 @@
 package cc.somkiat.basicunittesting.rule;
 
+import java.util.regex.Pattern;
+
 import cc.somkiat.basicunittesting.model.UserInfo;
 
 public class NameOnlyEnglishRule extends Exception implements Rule{
@@ -13,7 +15,7 @@ public class NameOnlyEnglishRule extends Exception implements Rule{
 
     @Override
     public boolean validate(UserInfo user) throws Exception {
-        if (user.getName().matches(".*\\d+.*")){
+        if (!Pattern.matches("^[a-zA-Z]+$", user.getName())){
             throw new NameOnlyEnglishRule("Name Only English.");
         }
         return true;

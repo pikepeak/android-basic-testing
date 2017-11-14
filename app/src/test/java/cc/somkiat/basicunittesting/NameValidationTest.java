@@ -25,4 +25,12 @@ public class NameValidationTest {
         NameValidation nameValidation = new NameValidation(userInfo);
         nameValidation.nameOnlyEnglish();
     }
+
+    @Test(expected = NameOnlyEnglishRule.class)
+    public void nameHaveSymbols() throws Exception {
+        String name = "peak!@!#!@#^()";
+        UserInfo userInfo = new UserInfo(name);
+        NameValidation nameValidation = new NameValidation(userInfo);
+        nameValidation.nameOnlyEnglish();
+    }
 }
