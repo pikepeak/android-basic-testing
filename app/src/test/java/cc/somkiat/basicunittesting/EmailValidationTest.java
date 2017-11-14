@@ -51,6 +51,14 @@ public class EmailValidationTest {
         emailValidation.isEmailPattern();
     }
 
+    @Test
+    public void correctEmailPattern() throws Exception {
+        String email = "khunach@msn.com";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        assertTrue("`true` when it's email pattern", emailValidation.isEmailPattern());
+    }
+
 
 
 
