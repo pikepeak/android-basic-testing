@@ -1,13 +1,20 @@
 package cc.somkiat.basicunittesting;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Date;
+
+import cc.somkiat.basicunittesting.model.UserInfo;
+
+public class MainActivity extends AppCompatActivity implements UserInfo.userInfoListener {
 
     private EditText name;
     private DatePicker birthday;
@@ -15,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button save;
     private Button revert;
+
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +35,23 @@ public class MainActivity extends AppCompatActivity {
 
         this.save = findViewById(R.id.saveButton);
         this.revert = findViewById(R.id.revertButton);
+
+        context = this;
     }
 
-    public void onSaveClick(View view) {
-
+    public void onSaveClick(View view) throws Exception {
+        UserInfo userInfo = new UserInfo(this, name.getText().toString(),
+                new Date(birthday.getYear(), birthday.getMonth(), birthday.getDayOfMonth()),
+                email.getText().toString());
     }
 
     public void onRevertClick(View view) {
-
+        this.name.setText("");
+        this.email.setText("");
     }
 
+    @Override
+    public void onShow(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+    }
 }
