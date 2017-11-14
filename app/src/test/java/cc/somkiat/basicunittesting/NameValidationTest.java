@@ -56,6 +56,30 @@ public class NameValidationTest {
         String name = "peakinwza";
         UserInfo userInfo = new UserInfo(name);
         NameValidation nameValidation = new NameValidation(userInfo);
-        assertTrue("`true` when Name is OnlyEnglish", nameValidation.validation());
+        assertTrue("`true` when Name is Acceptable", nameValidation.validation());
+    }
+
+    @Test(expected = NameIsEmptyRule.class)
+    public void nameIsNotAcceptableByEmpty() throws Exception {
+        String name = "";
+        UserInfo userInfo = new UserInfo(name);
+        NameValidation nameValidation = new NameValidation(userInfo);
+        nameValidation.validation();
+    }
+
+    @Test(expected = NameOnlyEnglishRule.class)
+    public void nameIsNotAcceptableByHaveNumber() throws Exception {
+        String name = "dasd123";
+        UserInfo userInfo = new UserInfo(name);
+        NameValidation nameValidation = new NameValidation(userInfo);
+        nameValidation.validation();
+    }
+
+    @Test(expected = NameOnlyEnglishRule.class)
+    public void nameIsNotAcceptableByHaveSymbols() throws Exception {
+        String name = "dasd_#@!%!#";
+        UserInfo userInfo = new UserInfo(name);
+        NameValidation nameValidation = new NameValidation(userInfo);
+        nameValidation.validation();
     }
 }
