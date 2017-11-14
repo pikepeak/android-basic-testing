@@ -10,13 +10,13 @@ public class NameValidation {
         this.userInfo = userInfo;
     }
 
-    public void nameIsEmpty() throws Exception{
+    public boolean nameIsEmpty() throws Exception{
         NameIsEmptyRule nameIsEmptyRule = new NameIsEmptyRule();
-        nameIsEmptyRule.validate(userInfo);
+        return nameIsEmptyRule.validate(userInfo);
     }
 
-    public void nameOnlyEnglish() throws Exception{
+    public boolean nameOnlyEnglish() throws Exception{
         NameOnlyEnglishRule nameOnlyEnglishRule = new NameOnlyEnglishRule();
-        nameOnlyEnglishRule.validate(userInfo);
+        return nameOnlyEnglishRule.validate(userInfo);
     }
 }

@@ -8,6 +8,8 @@ import cc.somkiat.basicunittesting.rule.NameOnlyEnglishRule;
 import cc.somkiat.basicunittesting.rule.Rule;
 import cc.somkiat.basicunittesting.validation.NameValidation;
 
+import static junit.framework.Assert.assertTrue;
+
 public class NameValidationTest {
 
     @Test(expected = NameIsEmptyRule.class)
@@ -28,9 +30,17 @@ public class NameValidationTest {
 
     @Test(expected = NameOnlyEnglishRule.class)
     public void nameHaveSymbols() throws Exception {
-        String name = "peak!@!#!@#^()";
+        String name = "peak!@!#!@#^__()";
         UserInfo userInfo = new UserInfo(name);
         NameValidation nameValidation = new NameValidation(userInfo);
         nameValidation.nameOnlyEnglish();
     }
+    @Test
+    public void nameIsNotEmpty() throws Exception {
+        String name = "peak21515#!@#%^#$%^&*_*()&";
+        UserInfo userInfo = new UserInfo(name);
+        NameValidation nameValidation = new NameValidation(userInfo);
+        assertTrue("Need `true` when Name is not empty", nameValidation.nameIsEmpty());
+    }
+
 }
