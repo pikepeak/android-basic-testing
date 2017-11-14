@@ -19,4 +19,10 @@ public class EmailValidation {
         EmailPatternRule EmailPatternRule = new EmailPatternRule();
         return EmailPatternRule.validate(userInfo);
     }
+
+    public boolean validation() throws Exception {
+        emailIsEmpty();
+        isEmailPattern();
+        return true;
+    }
 }

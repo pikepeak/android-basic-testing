@@ -59,7 +59,48 @@ public class EmailValidationTest {
         assertTrue("`true` when it's email pattern", emailValidation.isEmailPattern());
     }
 
+    @Test
+    public void emailIsAcceptable() throws Exception{
+        String email = "khunach@msn.com";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        assertTrue("`true` when it's email pattern", emailValidation.validation());
+    }
 
+    @Test(expected = EmailIsEmptyRule.class)
+    public void emailIsNotAcceptableByEmpty() throws Exception{
+        String email = "";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        assertTrue("`true` when it's email pattern", emailValidation.validation());
+    }
 
-
+    @Test(expected = EmailPatternRule.class)
+    public void emailIsNotAcceptableByIsString() throws Exception{
+        String email = "asdasdasdas";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        assertTrue("`true` when it's email pattern", emailValidation.validation());
+    }
+    @Test(expected = EmailPatternRule.class)
+    public void emailIsNotAcceptableByWithOutOnTopDomain() throws Exception{
+        String email = "asdasdasdas@hotmail";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        assertTrue("`true` when it's email pattern", emailValidation.validation());
+    }
+    @Test(expected = EmailPatternRule.class)
+    public void emailIsNotAcceptableByWithOutAtSymbol() throws Exception{
+        String email = "asdasdasdashotmail.com";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        assertTrue("`true` when it's email pattern", emailValidation.validation());
+    }
+    @Test(expected = EmailPatternRule.class)
+    public void emailIsNotAcceptableByWrongPosition() throws Exception{
+        String email = "a.sdasdasdashotmail@com";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        assertTrue("`true` when it's email pattern", emailValidation.validation());
+    }
 }
