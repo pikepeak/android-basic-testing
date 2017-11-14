@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import cc.somkiat.basicunittesting.model.UserInfo;
 import cc.somkiat.basicunittesting.rule.EmailIsEmptyRule;
+import cc.somkiat.basicunittesting.rule.EmailPatternRule;
 import cc.somkiat.basicunittesting.validation.EmailValidation;
 import cc.somkiat.basicunittesting.validation.NameValidation;
 
@@ -25,4 +26,32 @@ public class EmailValidationTest {
         EmailValidation emailValidation = new EmailValidation(userInfo);
         assertTrue("`true` when enail is not empty", emailValidation.emailIsEmpty());
     }
+
+    @Test(expected = EmailPatternRule.class)
+    public void emailWithOutAtSymbol() throws Exception {
+        String email = "peak.com";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        emailValidation.isEmailPattern();
+    }
+
+    @Test(expected = EmailPatternRule.class)
+    public void emailWithOutTopDomain() throws Exception {
+        String email = "hot@head";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        emailValidation.isEmailPattern();
+    }
+
+    @Test(expected = EmailPatternRule.class)
+    public void emailIsString() throws Exception {
+        String email = "khunachmsncom";
+        UserInfo userInfo = new UserInfo("" , email);
+        EmailValidation emailValidation = new EmailValidation(userInfo);
+        emailValidation.isEmailPattern();
+    }
+
+
+
+
 }
