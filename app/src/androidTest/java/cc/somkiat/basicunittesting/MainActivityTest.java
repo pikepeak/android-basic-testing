@@ -101,6 +101,29 @@ public class MainActivityTest {
         onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("6546peak#$6546!@$#!4554@#%12"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
         onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("ไทย"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+    }
 
+    @Test
+    public void SaveButtonTestWithEmailIsNotOnPattern(){
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("peak"));
+        onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("gamermsncom"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("gamermsn.com"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("gamer@msncom"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("ga.mermsn@com"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("dasdas84561!@#%$^._+="));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 }
