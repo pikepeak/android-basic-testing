@@ -1,8 +1,10 @@
 package cc.somkiat.basicunittesting;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements UserInfo.userInfo
     private EditText name;
     private DatePicker birthday;
     private EditText email;
-
+    private Toast currentToast;
     private Button save;
     private Button revert;
 
@@ -53,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements UserInfo.userInfo
 
     @Override
     public void onShow(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Error")
+                .setMessage(text)
+                .setPositiveButton("OK", null);
+        builder.show();
     }
 }

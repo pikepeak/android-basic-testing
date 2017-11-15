@@ -1,9 +1,16 @@
 package cc.somkiat.basicunittesting;
 
+import android.os.IBinder;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.Root;
+import android.support.test.espresso.ViewInteraction;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.WindowManager;
 
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,8 +26,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.core.IsNot.not;
 
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
     @Rule
@@ -58,72 +66,88 @@ public class MainActivityTest {
     @Test
     public void SaveButtonTestWithDataIsEmpty(){
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.revertButton)).perform(scrollTo(), click());
         onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText(""));
         onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText(""));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("Name is empty")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        CheckTextInDialog("Name is empty");
     }
 
     @Test
     public void SaveButtonTestWithNameIsEmpty(){
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.revertButton)).perform(scrollTo(), click());
         onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText(""));
         onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("gamer@msn.com"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("Name is empty")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        CheckTextInDialog("Name is empty");
     }
 
     @Test
     public void SaveButtonTestWithEmailIsEmpty(){
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.revertButton)).perform(scrollTo(), click());
         onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("peak"));
         onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText(""));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("Email is empty")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        CheckTextInDialog("Email is empty");
     }
 
     @Test
-    public void SaveButtonTestWithNameNotEnglish(){
+    public void SaveButtonTestWithNameNotEnglish() {
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("123"));
+        onView(withId(R.id.userNameInput)).perform(scrollTo(), replaceText("123"));
         onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("gamer@msn.com"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
-        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("Peak123"));
+        CheckTextInDialog("Name Only English.");
+        onView(withId(R.id.userNameInput)).perform(scrollTo(), replaceText("Peak123"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
-        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("#$!@$#!@#%$^&^%*&"));
+        CheckTextInDialog("Name Only English.");
+        onView(withId(R.id.userNameInput)).perform(scrollTo(), replaceText("#$!@$#!@#%$^&^%*&"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
-        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("peak#$!@$#!@#%$^&^%*&"));
+        CheckTextInDialog("Name Only English.");
+        onView(withId(R.id.userNameInput)).perform(scrollTo(), replaceText("peak#$!@$#!@#%$^&^%*&"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
-        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("6546peak#$6546!@$#!4554@#%12"));
+        CheckTextInDialog("Name Only English.");
+        onView(withId(R.id.userNameInput)).perform(scrollTo(), replaceText("6546peak#$6546!@$#!4554@#%12"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
-        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("ไทย"));
+        CheckTextInDialog("Name Only English.");
+        onView(withId(R.id.userNameInput)).perform(scrollTo(), replaceText("ไทย"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        CheckTextInDialog("Name Only English.");
     }
 
     @Test
-    public void SaveButtonTestWithEmailIsNotOnPattern(){
+    public void SaveButtonTestWithEmailIsNotOnPattern() {
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("peak"));
+        onView(withId(R.id.revertButton)).perform(scrollTo(), click());
+        onView(withId(R.id.userNameInput)).perform(scrollTo(), replaceText("peak"));
         onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("gamermsncom"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        CheckTextInDialog("not a email pattern");
         onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("gamermsn.com"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        CheckTextInDialog("not a email pattern");
         onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("gamer@msncom"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        CheckTextInDialog("not a email pattern");
         onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("ga.mermsn@com"));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        CheckTextInDialog("not a email pattern");
         onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("dasdas84561!@#%$^._+="));
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
-        onView(withText("not a email pattern")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        CheckTextInDialog("not a email pattern");
     }
+
+    public void CheckTextInDialog(String msg){
+        onView(withText(msg)).check(matches(isDisplayed()));
+        ok();
+    }
+
+    public void ok(){
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(android.R.id.button1), withText("OK")));
+        appCompatButton2.perform(scrollTo(), click());
+    }
+
 }

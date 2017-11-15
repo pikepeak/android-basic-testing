@@ -28,7 +28,7 @@ public class UserInfo {
         this.email = email;
     }
 
-    public UserInfo(userInfoListener userInfoListener, String name, Date birthday, String email){
+    public UserInfo(userInfoListener userInfoListener, String name, Date birthday, String email) throws InterruptedException {
         this.name = name;
         this.birthday = birthday;
         this.email = email;
