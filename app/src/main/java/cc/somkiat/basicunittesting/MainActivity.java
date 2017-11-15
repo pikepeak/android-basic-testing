@@ -1,5 +1,6 @@
 package cc.somkiat.basicunittesting;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements UserInfo.userInfo
     private Button save;
     private Button revert;
 
-    public static Context context;
+    public static Activity context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
