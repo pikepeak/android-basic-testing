@@ -81,4 +81,26 @@ public class MainActivityTest {
         onView(withId(R.id.saveButton)).perform(scrollTo(), click());
         onView(withText("Email is empty")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
+
+    @Test
+    public void SaveButtonTestWithNameNotEnglish(){
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("123"));
+        onView(withId(R.id.emailInput)).perform(scrollTo(), replaceText("gamer@msn.com"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("Peak123"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("#$!@$#!@#%$^&^%*&"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("peak#$!@$#!@#%$^&^%*&"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withId(R.id.userNameInput)).perform(scrollTo() ,replaceText("6546peak#$6546!@$#!4554@#%12"));
+        onView(withId(R.id.saveButton)).perform(scrollTo(), click());
+        onView(withText("Name Only English.")).inRoot(withDecorView(not(is(MainActivity.context.getWindow().getDecorView())))).check(matches(isDisplayed()));
+
+    }
 }

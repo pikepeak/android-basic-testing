@@ -82,4 +82,12 @@ public class NameValidationTest {
         NameValidation nameValidation = new NameValidation(userInfo);
         nameValidation.validation();
     }
+
+    @Test(expected = NameOnlyEnglishRule.class)
+    public void nameIsNotAcceptableByLongString() throws Exception {
+        String name = "Peak123#$!@$#!@#%$^&^%*&)(-+*SADCZ}{}{#";
+        UserInfo userInfo = new UserInfo(name);
+        NameValidation nameValidation = new NameValidation(userInfo);
+        nameValidation.validation();
+    }
 }
