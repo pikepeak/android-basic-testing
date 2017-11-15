@@ -1,12 +1,7 @@
 package cc.somkiat.basicunittesting.model;
 
-import android.widget.DatePicker;
-import android.widget.EditText;
-
 import java.util.Date;
 
-import cc.somkiat.basicunittesting.MainActivity;
-import cc.somkiat.basicunittesting.R;
 import cc.somkiat.basicunittesting.validation.EmailValidation;
 import cc.somkiat.basicunittesting.validation.NameValidation;
 
@@ -53,6 +48,14 @@ public class UserInfo {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public UserInfo(String name) {
+        this.name = name;
+    }
+
     public Date getBirthday() {
         return birthday;
     }
@@ -61,15 +64,13 @@ public class UserInfo {
         this.birthday = birthday;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public UserInfo(String name) {
+    public UserInfo(String name, Date birthday, String email) {
         this.name = name;
+        this.birthday = birthday;
+        this.email = email;
     }
 }
